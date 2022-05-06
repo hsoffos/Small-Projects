@@ -65,7 +65,6 @@ def main():
             if move in ('H', 'D'):
                 # Hit and Double Down takes another card
                 new_card = deck.pop()
-                print(new_card)
                 rank, suit = new_card
                 print('You drew a {} of {}.'.format(rank, suit))
                 player_hand.append(new_card)
