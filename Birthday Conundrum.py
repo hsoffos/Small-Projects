@@ -1,31 +1,32 @@
 """Birthday Conundrum : Monte Carlo Simulation exploring the famous Birthday Problem"""
 
-import datetime, random
+import datetime
+import random
 
 
-def getBirthdays(numberOfBirthdays):
+def get_birthdays(number_of_birthdays):
     """Returns a list of *number* random date objects for birthdays"""
     birthdays = []
 
-    for i in range(numberOfBirthdays):
+    for i in range(number_of_birthdays):
         # Year is unimportant, so only grab month and day
-        startOfYear = datetime.date(2001, 1, 1)
+        start_of_year = datetime.date(2001, 1, 1)
 
         # Random day in the year:
-        randomNumberOfDays = datetime.timedelta(random.randint(0, 364))
-        birthday = startOfYear + randomNumberOfDays
+        random_number_of_days = datetime.timedelta(random.randint(0, 364))
+        birthday = start_of_year + random_number_of_days
         birthdays.append(birthday)
     return birthdays
 
 
-def getMatch(birthdays):
+def get_match(birthday_list):
     """Returns the date object of a birthday that occurs more than once"""
-    if len(birthdays) == len(set(birthdays)):
+    if len(birthday_list) == len(set(birthday_list)):
         return None  # All birthdays unique
 
     # Compare each birthday to all others
-    for a, birthdayA in enumerate(birthdays):
-        for b, birthdayB in enumerate(birthdays[a + 1:]):
+    for a, birthdayA in enumerate(birthday_list):
+        for b, birthdayB in enumerate(birthday_list[a + 1:]):
             if birthdayA == birthdayB:
                 return birthdayA  # Return first matching birthday
 
@@ -54,9 +55,9 @@ print()
 
 # Generate and display the birthdays:
 print('Here are', numBDays, 'birthdays:')
-birthdays = getBirthdays(numBDays)
+birthdays = get_birthdays(numBDays)
 for i, birthday in enumerate(birthdays):
-    if i!=0:
+    if i != 0:
         # Display a comma for each birthday after first
         print(', ', end='')
     monthName = MONTHS[birthday.month-1]
@@ -66,12 +67,12 @@ print()
 print()
 
 # Determine if there are two birtdays that match
-match = getMatch(birthdays)
+match = get_match(birthdays)
 
 # Display the results:
 print('In this simulation, ', end='')
-if match != None:
-    monthName = MONTHS[match.month -1]
+if match is not None:
+    monthName = MONTHS[match.month - 1]
     dateText = '{} {}'.format(monthName, match.day)
     print('multiple people have a birthday on', dateText)
 else:
@@ -89,13 +90,13 @@ for i in range(100_000):
     # Report progress every 10,000
     if i % 10_000 == 0:
         print(i, 'simulations run...')
-    birthdays = getBirthdays(numBDays)
-    if getMatch(birthdays) != None:
+    birthdays = get_birthdays(numBDays)
+    if get_match(birthdays) is not None:
         simMatch = simMatch + 1
 print('100,000 simulations run.')
 
 # Display simulation results:
-probability = round(simMatch /100_000 * 100, 2)
+probability = round(simMatch / 100_000 * 100, 2)
 print('Out of 100,000 simulation of', numBDays, 'people, there was a')
 print('matching birthday in that group', simMatch, 'times. This means')
 print('that', numBDays, 'people have a', probability, '% chance of')
