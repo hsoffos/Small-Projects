@@ -9,10 +9,10 @@ def get_birthdays(number_of_birthdays):
     birthdays = []
 
     for i in range(number_of_birthdays):
-        # Year is unimportant, so only grab month and day
+        # Year is unimportant, so pick 2001
         start_of_year = datetime.date(2001, 1, 1)
 
-        # Random day in the year:
+        # Random day in the year as birthday:
         random_number_of_days = datetime.timedelta(random.randint(0, 364))
         birthday = start_of_year + random_number_of_days
         birthdays.append(birthday)
@@ -57,8 +57,7 @@ print()
 print('Here are', numBDays, 'birthdays:')
 birthdays = get_birthdays(numBDays)
 for i, birthday in enumerate(birthdays):
-    if i != 0:
-        # Display a comma for each birthday after first
+    if i != 0:  # Display a comma for each birthday after first
         print(', ', end='')
     monthName = MONTHS[birthday.month-1]
     dateText = '{} {}'.format(monthName, birthday.day)
@@ -66,7 +65,7 @@ for i, birthday in enumerate(birthdays):
 print()
 print()
 
-# Determine if there are two birtdays that match
+# Determine if there are any two birthdays that match
 match = get_match(birthdays)
 
 # Display the results:
@@ -87,8 +86,7 @@ input('Press Enter to begin...')
 # print('Let\'s run another 100,000 simulations.')
 simMatch = 0  # How many simulations had matching birthdays in them
 for i in range(100_000):
-    # Report progress every 10,000
-    if i % 10_000 == 0:
+    if i % 10_000 == 0:  # Report progress every 10,000
         print(i, 'simulations run...')
     birthdays = get_birthdays(numBDays)
     if get_match(birthdays) is not None:
